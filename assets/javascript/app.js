@@ -5,42 +5,100 @@ var notAnswered  = 0;
 var rightGif = "<img src='assets/images/win.gif' />";
 var wrongGif = "<img src='assets/images/lose.gif' />";
 var timeoutGif = "<img src='assets/images/timeout.gif' />";
-var timer = 5;
+var timer = 15;
 var count = 0;
 
 var questionObj = {
 	bank : [
 		{
-			question: "Question 1",
-			ans1 : "q1: answer 1",
-			ans2 : "q1: answer 2",
-			ans3 : "q1: answer 3",
-			ans4 : "q1: answer 4",
-			correct : "ans1"
+			question: "michael went to the same high school as what other character?",
+			ans1 : "phyllis",
+			ans2 : "stanley",
+			ans3 : "creed",
+			ans4 : "merideth",
+			correct : "ans1",
+			display : "phyllis"
 		},
 		{
-			question: "Question 2",
-			ans1 : "q2: answer 1",
-			ans2 : "q2: answer 2",
-			ans3 : "q2: answer 3",
-			ans4 : "q2: answer 4",
-			correct : "ans2"
+			question: "what do dwight and his cousin moe grow on schrute farms?",
+			ans1 : "cabbage",
+			ans2 : "beets",
+			ans3 : "cucumber",
+			ans4 : "sauerkraut",
+			correct : "ans2",
+			display : "beets"
 		},
 		{
-			question: "Question 3",
-			ans1 : "q3: answer 1",
-			ans2 : "q3: answer 2",
-			ans3 : "q3: answer 3",
-			ans4 : "q3: answer 4",
-			correct : "ans3"
+			question: "michael scott drives a ",
+			ans1 : "pt cruiser",
+			ans2 : "ford taurus",
+			ans3 : "chrysler sebring convertible",
+			ans4 : "firebird",
+			correct : "ans3",
+			display: "chrysler sebring convertible"
 		},
 		{
-			question: "Question 4",
-			ans1 : "q4: answer 1",
-			ans2 : "q4: answer 2",
-			ans3 : "q4: answer 3",
-			ans4 : "q4: answer 4",
-			correct : "ans4"
+			question: "dunder mifflin sells what product?",
+			ans1 : "software",
+			ans2 : "appliances",
+			ans3 : "furniture",
+			ans4 : "paper",
+			correct : "ans4",
+			display : "paper"
+		},
+		{
+			question: "who does michael bring to the sandals resort in jamaica with?",
+			ans1 : "ryan",
+			ans2 : "dwight",
+			ans3 : "jan",
+			ans4 : "pam",
+			correct : "ans3",
+			display : "jan"
+		},
+		{
+			question: "what town is dunder mifflin located in?",
+			ans1 : "scranton",
+			ans2 : "hershey",
+			ans3 : "philadelphia",
+			ans4 : "reading",
+			correct : "ans1",
+			display : "scranton"
+		},
+		{
+			question: "what branch does jim get transferred to?",
+			ans1 : "trenton",
+			ans2 : "stamford",
+			ans3 : "new york city",
+			ans4 : "springfield",
+			correct : "ans2",
+			display : "stamford"
+		},
+		{
+			question: "what does dwight volunteer as in his spare time?",
+			ans1 : "animal shelter assistant",
+			ans2 : "salvation army employee",
+			ans3 : "deputy sheriff",
+			ans4 : "alter boy",
+			correct : "ans3",
+			display : "deputy sheriff"
+		},
+		{
+			question: "what position does michael scott hold in dunder mifflin?",
+			ans1 : "partner",
+			ans2 : "head of sales",
+			ans3 : "vice president",
+			ans4 : "regional manager",
+			correct : "ans4",
+			display : "regional manager"
+		},
+		{
+			question: "what is the name of pam's fiancee at the start of the series?",
+			ans1 : "ryan",
+			ans2 : "roy",
+			ans3 : "jim",
+			ans4 : "darrell",
+			correct : "ans2",
+			display : "roy"
 		}
 	]
 }
@@ -59,7 +117,7 @@ function timerReset(){
 		timer--;
 		$('#timeRemaining').text(timer);
 		timeOut();
-	}, 500);
+	}, 1000);
 }
 
 function timeOut() {
@@ -67,7 +125,7 @@ function timeOut() {
 		notAnswered++;
 		$('#noAnswer').text(notAnswered);
 		$("#timeRemaining, #timer").css("visibility", "hidden");
-		$('#question').text("You ran out of time. The correct answer was "+ questionObj.bank[count].correct);
+		$('#question').css("visibility", "visible").text("you ran out of time. the correct answer was: "+ questionObj.bank[count].display);
 		$('.choice').empty();
 		$('#transition').html(timeoutGif);
 		clearTimer();
@@ -84,13 +142,14 @@ function transition() {
 		} else if (count === questionObj.bank.length){
 			gameOver();
 		}	
-	}, 3000); 	
+	}, 3500); 	
 }
  
 function gameOver() {
 	$('#transition').empty();
-	$('#question').text("GAME OVER");
-	$("#timeRemaining, #timer").css("visibility", "hidden");
+	$("#timeRemaining, #timer, #question").css("visibility", "hidden");
+	$('.ui').css("background","none").css("border", "none");
+	$('.title h1').css("margin-bottom","200px").text("game over");
 	$('#restart, .stats').css("visibility", "visible");
 	$('#restart').on('click', function() {
 		restart();
@@ -100,19 +159,22 @@ function gameOver() {
 
 function clearTimer() {
 	clearInterval(intervalId);
-	timer = 5;
+	timer = 15;
 	count++;
 }
 
 function restart () {
 	count = 0;
-	timer = 5;
+	timer = 15;
 	correct = 0;
 	incorrect = 0;
 	notAnswered  = 0;
+	$('.ui').css({"background":"#45c7f9", "border":"3px solid white"});
+	$('.title h1').css("margin-bottom","0px").text("trivia challenge");
 	$('#correct, #wrong, #noAnswer').text(0);
 	clearInterval(intervalId);
 	questionLoad(questionObj.bank[count]);
+	$('#question').css("visibility", "visible")
 	timerReset();
 }
 
@@ -122,7 +184,7 @@ function listener() {
   		if($(this).attr("id") === questionObj.bank[count].correct) {
 			correct++;
 			$('#correct').text(correct);
-			$('#question').text(questionObj.bank[count].correct + ' is the right answer');
+			$('#question').css("visibility", "visible").text(questionObj.bank[count].display + ' is the right answer');
 			$('.choice').empty();
 			$('#transition').html(rightGif);
 			clearTimer();
@@ -130,7 +192,7 @@ function listener() {
       	} else if ($(this).attr("id") !== questionObj.bank[count].correct) {
       		incorrect++;
       		$('#wrong').text(incorrect);
-      		$('#question').text("That's wrong. The correct answer was: " + questionObj.bank[count].correct);
+      		$('#question').css("visibility", "visible").text("that's wrong. the correct answer was: " + questionObj.bank[count].display);
 			$('.choice').empty();
 			$('#transition').html(wrongGif);
 			clearTimer();
@@ -143,6 +205,8 @@ $(document).ready(function() {
 	$('#start').on("click", function() {
 		$('#start').css("visibility", "hidden");
 		$('#timer, #question, #answers').css("visibility", "visible");
+		$('.button button').css("margin-top", "0");
+		$('.ui').css({"background":"#45c7f9", "border":"3px solid white"});
 		questionLoad(questionObj.bank[count]);
 		timerReset();
 		timeOut();		

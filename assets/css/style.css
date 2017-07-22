@@ -1,11 +1,25 @@
 * {
 	box-sizing: border-box;
+	font-family: 'Droid Serif', monospace;
+}
+
+body {
+	background-image: url('../images/bg.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: #fff;
+	font-size: 1.5rem;
+}
+
+img {
+	max-width: 250px;
 }
 
 .container {
-	background: orange;
 	width: 50%;
-	margin: auto;
+	margin: 175px auto 0;
+	/*border: 3px solid white;*/
+	/*background: #45c7f9;*/
 }
 
 .button {
@@ -13,6 +27,16 @@
 	justify-content: center;
 }
 
+.button button {
+	background: #45c7f9;
+	margin-top: 100px;
+	color: white;
+	border: 3px solid white;
+	height: 50px;
+	width: 100px;
+	font-family: 'Droid Serif', monospace;
+
+}
 .title {
 	display: flex; 
 	flex-direction: column;
@@ -24,9 +48,20 @@
 	margin: 0;
 }
 
+.title h1 {
+	letter-spacing: .75rem;
+	font-size: 2.5rem;
+	color: #008289;	/* match green font */
+}
+
 .choice {
 	font-size: 20px;
 }
+
+.choice:hover {
+	font-size: 2.5rem;
+}
+
 #timer {
 	display: flex;
 	justify-content: center;
@@ -47,6 +82,9 @@
 	visibility: hidden;
 }
 
+#timeRemaining {
+	margin-left: 5px;
+}
 #restart,
 .stats {
 	visibility: hidden;
