@@ -29,7 +29,7 @@ var questionObj = {
 			display : "beets"
 		},
 		{
-			question: "michael scott drives a ",
+			question: "michael scott drives a _____ throughout the majority of the series. ",
 			ans1 : "pt cruiser",
 			ans2 : "ford taurus",
 			ans3 : "chrysler sebring convertible",
@@ -114,8 +114,8 @@ function questionLoad(qObjIndex) { //index from array in questionObj
 
 function timerReset(){
 	intervalId = setInterval(function() {
-		timer--;
 		$('#timeRemaining').text(timer);
+		timer--;
 		timeOut();
 	}, 1000);
 }
@@ -139,6 +139,7 @@ function transition() {
 		if(count < questionObj.bank.length) {
 			questionLoad(questionObj.bank[count]);
 			timerReset();
+			$('#timeRemaining').text(timer);
 		} else if (count === questionObj.bank.length){
 			gameOver();
 		}	
@@ -173,6 +174,7 @@ function restart () {
 	$('.title h1').css("margin-bottom","0px").text("trivia challenge");
 	$('#correct, #wrong, #noAnswer').text(0);
 	clearInterval(intervalId);
+	$('#timeRemaining').text(timer); // testing 0 bug
 	questionLoad(questionObj.bank[count]);
 	$('#question').css("visibility", "visible")
 	timerReset();
@@ -202,6 +204,10 @@ function listener() {
 }
 
 $(document).ready(function() {
+	$.each(questionObj.bank, function(index, value) {
+		console.log("question " + (index + 1) + ": " + value.display);
+	});
+	
 	$('#start').on("click", function() {
 		$('#start').css("visibility", "hidden");
 		$('#timer, #question, #answers').css("visibility", "visible");
@@ -211,6 +217,7 @@ $(document).ready(function() {
 		timerReset();
 		timeOut();		
 		listener();	
+
 	});
 });
 
