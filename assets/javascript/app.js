@@ -47,7 +47,7 @@ var questionObj = {
 			display : "paper"
 		},
 		{
-			question: "who does michael bring to the sandals resort in jamaica with?",
+			question: "who does michael bring with him to the sandals resort in jamaica?",
 			ans1 : "ryan",
 			ans2 : "dwight",
 			ans3 : "jan",
