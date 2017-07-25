@@ -113,9 +113,11 @@ function questionLoad(qObjIndex) { //index from array in questionObj
 }
 
 function timerReset(){
+			$('#timeRemaining').text(timer);		
+
 	intervalId = setInterval(function() {
-		$('#timeRemaining').text(timer);
 		timer--;
+		$('#timeRemaining').text(timer);		
 		timeOut();
 	}, 1000);
 }
@@ -220,6 +222,7 @@ $(document).ready(function() {
 
 	});
 });
+
 
 
 
